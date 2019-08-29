@@ -1,5 +1,5 @@
 {% set name = "chalice" %}
-{% set version = "1.10.0" %}
+{% set version = "1.11.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: a8c97b9c5472c00569410216a681e5bb922cbc509d8199713c878437d969c002
+  sha256: 63c744df00446aaefff254fbb238d0aa245d9fb349a03aee5e2b2c4899496465
 
 build:
   number: 0
