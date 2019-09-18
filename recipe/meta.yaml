@@ -1,5 +1,5 @@
 {% set name = "chalice" %}
-{% set version = "1.11.0" %}
+{% set version = "1.11.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 63c744df00446aaefff254fbb238d0aa245d9fb349a03aee5e2b2c4899496465
+  sha256: a2861ed6440e26254e9daff50d23e5d190e92e5e727b4deebea350a1884694cd
 
 build:
   number: 0
@@ -20,7 +20,7 @@ requirements:
     - pip
   run:
     - python
-    - click >=6.6,<7.0
+    - click >=6.6,<8.0
     - botocore >=1.12.86,<2.0.0
     - typing ==3.6.4  # [py<37]
     - six >=1.10.0,<2.0.0
