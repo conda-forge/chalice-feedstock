@@ -54,7 +54,7 @@ about:
       - A decorator based API for integrating with Amazon API Gateway, Amazon S3, Amazon SNS, Amazon SQS, and other AWS services.
       - Automatic IAM policy generation
   doc_url: http://chalice.readthedocs.io/en/latest/
-  dev_url: https://github.com/simplejson/simplejson
+  dev_url: https://github.com/aws/chalice
 
 extra:
   recipe-maintainers:
