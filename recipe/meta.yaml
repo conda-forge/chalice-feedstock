@@ -8,6 +8,10 @@ package:
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: ea2518e1cf5f26a1fbf1dcb3c84e7409456970d91448dba39f05c57e07050973
+  patches:
+    # Allows chalice apps to be used as terraform modules
+    # https://github.com/aws/chalice/pull/1387
+    - 0001-PR1387.patch
 
 build:
   number: 0
