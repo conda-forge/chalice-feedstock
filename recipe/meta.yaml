@@ -33,12 +33,15 @@ requirements:
     - watchdog ==0.8.3
 
 test:
+  requires:
+    - pip
   imports:
     - chalice
     - chalice.cli
     - chalice.cli.filewatch
     - chalice.deploy
   commands:
+    - pip check
     - chalice --help
 
 about:
