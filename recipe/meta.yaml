@@ -1,5 +1,5 @@
 {% set name = "chalice" %}
-{% set version = "1.14.1" %}
+{% set version = "1.15.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 457e71fd84951574ccbe72d1389d9c89aaf5e69a552b01d1f1585faa63459c26
+  sha256: bfacac7c9e9b17c30094a8789ec495b50f43af9df037d1f8903bfd68c7b946e9
   patches:
     # Allows chalice apps to be used as terraform modules
     # https://github.com/aws/chalice/pull/1387
