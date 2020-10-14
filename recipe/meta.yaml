@@ -1,5 +1,5 @@
 {% set name = "chalice" %}
-{% set version = "1.14.1" %}
+{% set version = "1.21.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 457e71fd84951574ccbe72d1389d9c89aaf5e69a552b01d1f1585faa63459c26
-  patches:
-    # Allows chalice apps to be used as terraform modules
-    # https://github.com/aws/chalice/pull/1387
-    - 0001-PR1387.patch
+  sha256: 562218c5d257607fba3440e0a1d09bdac81a11536c432ad2af1e2d46f1735df4
 
 build:
   number: 0
@@ -25,13 +21,15 @@ requirements:
   run:
     - python
     - pip >=9,<20.1
-    - click >=6.6,<8.0
+    - click >=7,<8.0
     - botocore >=1.12.86,<2.0.0
     - typing ==3.6.4  # [py<37]
+    - mypy_extensions
     - six >=1.10.0,<2.0.0
-    - attrs >=19.3.0,<20.0.0
+    - attrs >=19.3.0,<20.3.0
     - enum-compat >=0.0.2
     - jmespath >=0.9.3,<1.0.0
+    - pyyaml >=5.3.1,<6.0.0
     - wheel
   run_constrained:
     - watchdog ==0.8.3
