@@ -11,8 +11,9 @@ source:
 
 build:
   number: 1
+  entry_points:
+    - chalice = chalice.cli:main
   script: {{ PYTHON }} -m pip install . -vv
-  skip: true  # [py2k or win]
 
 requirements:
   host:
@@ -20,16 +21,16 @@ requirements:
     - pip
   run:
     - python
-    - pip >=9,<20.1
-    - click >=7,<8.0
-    - botocore >=1.12.86,<2.0.0
-    - typing ==3.6.4  # [py<37]
-    - mypy_extensions
-    - six >=1.10.0,<2.0.0
     - attrs >=19.3.0,<20.3.0
+    - botocore >=1.12.86,<2.0.0
+    - click >=7,<8.0
     - enum-compat >=0.0.2
     - jmespath >=0.9.3,<1.0.0
+    - mypy_extensions ==0.4.3
     - pyyaml >=5.3.1,<6.0.0
+    - setuptools
+    - six >=1.10.0,<2.0.0
+    - typing ==3.6.4  # [py<37]
     - wheel
   run_constrained:
     - watchdog ==0.8.3
