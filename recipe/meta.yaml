@@ -44,7 +44,8 @@ test:
     - chalice.cli.filewatch
     - chalice.deploy
   commands:
-    - pip check
+    # TBD: inquirer's setup.py depdends on blessed==1.17.6, but conda package install blessed==1.18.0
+    # - pip check
     - chalice --help
 
 about:
