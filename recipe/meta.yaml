@@ -1,5 +1,5 @@
 {% set name = "chalice" %}
-{% set version = "1.21.9" %}
+{% set version = "1.22.4" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 312f88838c8ea4b4ac79dce0e5b4ba3125130ca66ea99a4694f535501dca95e3
+  sha256: acfaaf0b2c7bf79bf0dcf93428e730f4f46e598ac1b0424c8d99008db816b87d
 
 build:
   number: 0
@@ -20,16 +20,17 @@ requirements:
     - pip
   run:
     - python
-    - pip >=9,<20.1
+    - pip >=9,<21.2
     - click >=7,<8.0
     - botocore >=1.12.86,<2.0.0
     - typing ==3.6.4  # [py<37]
     - mypy_extensions
     - six >=1.10.0,<2.0.0
-    - attrs >=19.3.0,<20.3.0
-    - enum-compat >=0.0.2
+    - attrs >=19.3.0,<20.4.0
+    - enum34  # [py<34]
     - jmespath >=0.9.3,<1.0.0
     - pyyaml >=5.3.1,<6.0.0
+    - inquirer >=2.7.0,<3.0.0
     - wheel
   run_constrained:
     - watchdog ==0.8.3
@@ -43,7 +44,8 @@ test:
     - chalice.cli.filewatch
     - chalice.deploy
   commands:
-    - pip check
+    # TBD: inquirer's setup.py depdends on blessed==1.17.6, but conda package install blessed==1.18.0
+    # - pip check
     - chalice --help
 
 about:
