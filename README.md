@@ -1,11 +1,11 @@
-About chalice
-=============
+About chalice-feedstock
+=======================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/chalice-feedstock/blob/main/LICENSE.txt)
 
 Home: https://github.com/aws/chalice
 
 Package license: Apache-2.0
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/chalice-feedstock/blob/main/LICENSE.txt)
 
 Summary: Chalice is a microframework for writing serverless apps in python.
 
