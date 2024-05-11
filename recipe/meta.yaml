@@ -20,7 +20,7 @@ requirements:
     - pip
   run:
     - python
-    - pip >=9,<21.4
+    - pip
     - click >=7,<9.0
     - botocore >=1.14.0,<2.0.0
     - typing-extensions
