@@ -4,19 +4,6 @@ schema_version: 1
 context:
   version: "1.32.0"
   python_check_max: "3.14"
-  pytest_k:
-    not (
-      (aws and (test_websockets or test_features))
-      or test_can_package_pandas
-      or test_can_package_simplejson
-      or test_can_package_sqlalchemy
-      or test_can_package_with_dashes_in_name
-      or test_cli_with_absolute_path
-      or test_create_project_with_prompted_app_name
-      or test_no_error_message_printed_on_empty_reqs_file
-      or test_create_new_project_creates_app
-    )
-
 
 package:
   name: chalice
@@ -31,7 +18,7 @@ source:
     target_directory: src
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script:
     - cd dist
@@ -81,10 +68,27 @@ tests:
         - watchdog
         - websocket-client <2.0.0
     script:
-      - chalice --help
-      - cd src
-      - coverage run --source=chalice --branch -m pytest -vv --tb=long --color=yes -k "${{ pytest_k }}"
-      - coverage report --show-missing --skip-covered --fail-under=95
+      env:
+        PYTEST_ADDOPTS:
+          -vv
+          --tb=long
+          --color=yes
+          -k "not (
+            (aws and (test_websockets or test_features))
+            or test_can_package_pandas
+            or test_can_package_simplejson
+            or test_can_package_sqlalchemy
+            or test_can_package_with_dashes_in_name
+            or test_cli_with_absolute_path
+            or test_create_project_with_prompted_app_name
+            or test_no_error_message_printed_on_empty_reqs_file
+            or test_create_new_project_creates_app
+          )"
+      content:
+        - chalice --help
+        - cd src
+        - coverage run --source=chalice --branch -m pytest
+        - coverage report --show-missing --skip-covered --fail-under=95
 
 about:
   license: Apache-2.0
