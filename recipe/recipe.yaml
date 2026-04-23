@@ -1,0 +1,125 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+schema_version: 1
+
+context:
+  version: "1.32.0"
+  python_check_max: "3.14"
+
+package:
+  name: chalice
+  version: ${{ version }}
+
+source:
+  - url: https://pypi.org/packages/source/c/chalice/chalice-${{ version }}.tar.gz
+    sha256: c1d469316747ef8850b4b286c60bcf8c53da3bab1a2042d7551284aa8be06af2
+    target_directory: dist
+  - url: https://github.com/aws/chalice/archive/refs/tags/${{ version }}.tar.gz
+    sha256: f4d86905b01c1e9e4855e8e38ff167210a2057a78688fa50a58cbdc68f0a9229
+    target_directory: src
+
+build:
+  number: 2
+  noarch: python
+  script:
+    - cd dist
+    - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
+  python:
+    entry_points:
+      - chalice = chalice.cli:main
+
+requirements:
+  host:
+    - pip
+    - python ${{ python_min }}.*
+    - setuptools
+  run:
+    - botocore >=1.14.0,<2.0.0
+    - click >=7,<9.0
+    - inquirer >=3.0.0,<4.0.0
+    - jmespath >=0.9.3,<2.0.0
+    - pip >=9,<25.1
+    - python >=${{ python_min }}
+    - pyyaml >=5.3.1,<7.0.0
+    - setuptools
+    - six >=1.10.0,<2.0.0
+    - wheel
+  run_constraints:
+    - watchdog ==2.3.1
+
+tests:
+  - python:
+      imports: chalice
+      pip_check: true
+      python_version:
+        - ${{ python_min }}.*
+        - ${{ python_check_max }}.*
+  - files:
+      source:
+        - src/tests
+        - src/pyproject.toml
+    requirements:
+      run:
+        - boto3 <2.0.0
+        - hypothesis
+        - pytest-cov
+        - python ${{ python_min }}.*
+        - requests
+        - watchdog
+        - websocket-client <2.0.0
+    script:
+      env:
+        PYTEST_ADDOPTS:
+          -vv
+          --tb=long
+          --color=yes
+          -k "not (
+            (aws and (test_websockets or test_features))
+            or test_can_package_pandas
+            or test_can_package_simplejson
+            or test_can_package_sqlalchemy
+            or test_can_package_with_dashes_in_name
+            or test_cli_with_absolute_path
+            or test_create_project_with_prompted_app_name
+            or test_no_error_message_printed_on_empty_reqs_file
+            or test_create_new_project_creates_app
+          )"
+      content:
+        - chalice --help
+        - cd src
+        - coverage run --source=chalice --branch -m pytest
+        - coverage report --show-missing --skip-covered --fail-under=95
+
+about:
+  license: Apache-2.0
+  license_file:
+    - dist/LICENSE
+    - dist/NOTICE
+  summary: Chalice is a microframework for writing serverless apps in python.
+  description: |
+    Chalice is a microframework for writing serverless apps in python. It allows
+    you to quickly create and deploy applications that use AWS Lambda. It provides:
+    - A command line tool for creating, deploying, and managing your app
+    - A decorator based API for integrating with Amazon API Gateway, Amazon S3,
+      Amazon SNS, Amazon SQS, and other AWS services.
+    - Automatic IAM policy generation
+  homepage: https://pypi.org/project/chalice
+  repository: https://github.com/aws/chalice
+  documentation: https://chalice.readthedocs.io
+
+extra:
+  recipe-maintainers:
+    - sodre
+    - markllama
+    - dgasmith
+  pytest_k:
+    not (
+      (aws and (test_websockets or test_features))
+      or test_can_package_pandas
+      or test_can_package_simplejson
+      or test_can_package_sqlalchemy
+      or test_can_package_with_dashes_in_name
+      or test_cli_with_absolute_path
+      or test_create_project_with_prompted_app_name
+      or test_no_error_message_printed_on_empty_reqs_file
+      or test_create_new_project_creates_app
+    )
